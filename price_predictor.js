@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       // Execute all remote fetches concurrently
       const [liveRes, predRes] = await Promise.all([
-        fetch(`http://127.0.0.1:5000/get_live_price?crop_name=${encodeURIComponent(cropName)}`).then(r => r.json()),
-        fetch(`http://127.0.0.1:5000/predict_crop_price?crop_name=${encodeURIComponent(cropName)}&date=${dateVal}`).then(r => r.json()),
+        fetch(`/get_live_price?crop_name=${encodeURIComponent(cropName)}`).then(r => r.json()),
+        fetch(`/predict_crop_price?crop_name=${encodeURIComponent(cropName)}&date=${dateVal}`).then(r => r.json()),
         renderMonthlyTrend(cropName, dateVal) // executes concurrently and renders chart
       ]);
 
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const promises = Array.from({ length: 12 }, (_, idx) => {
       const m = idx + 1;
       const monthStr = m < 10 ? `0${m}` : `${m}`;
-      return fetch(`http://127.0.0.1:5000/predict_crop_price?crop_name=${encodeURIComponent(cropName)}&date=${year}-${monthStr}-15`)
+      return fetch(`/predict_crop_price?crop_name=${encodeURIComponent(cropName)}&date=${year}-${monthStr}-15`)
         .then(res => res.json())
         .then(d => d.predicted_price || 0)
         .catch(() => 0);

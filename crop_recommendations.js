@@ -1,4 +1,4 @@
-const API_BASE = 'http://127.0.0.1:5000';
+const API_BASE = window.location.origin;
 
 let currentLat = localStorage.getItem('farm-lat') || 28.61;
 let currentLon = localStorage.getItem('farm-lon') || 77.20;
@@ -223,7 +223,7 @@ async function renderRoiChart(canvasId, cropName) {
             const monthStr = (d.getMonth() + 1).toString().padStart(2, '0');
             const dateStr = `${d.getFullYear()}-${monthStr}-15`;
             
-            promises.push(fetch(`http://127.0.0.1:5000/predict_crop_price?crop_name=${encodeURIComponent(cropName.toLowerCase())}&date=${dateStr}`)
+            promises.push(fetch(`${API_BASE}/predict_crop_price?crop_name=${encodeURIComponent(cropName.toLowerCase())}&date=${dateStr}`)
                 .then(res => res.json())
                 .then(data => data.predicted_price || 0)
                 .catch(() => 0));

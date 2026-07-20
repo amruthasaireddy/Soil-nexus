@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const lat = document.getElementById("coord-lat")?.value || 28.61;
       const lon = document.getElementById("coord-lon")?.value || 77.20;
-      const res = await fetch(`http://127.0.0.1:5000/get_daily_weather_forecast?lat=${lat}&lon=${lon}&t=${Date.now()}`);
+      const res = await fetch(`/get_daily_weather_forecast?lat=${lat}&lon=${lon}&t=${Date.now()}`);
       const data = await res.json();
       
       if (data.success && data.weather && data.weather.time) {
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const lat = document.getElementById("coord-lat")?.value || 28.61;
       const lon = document.getElementById("coord-lon")?.value || 77.20;
-      const res  = await fetch(`http://127.0.0.1:5000/get_live_weather_forecast?lat=${lat}&lon=${lon}&t=${Date.now()}`);
+      const res  = await fetch(`/get_live_weather_forecast?lat=${lat}&lon=${lon}&t=${Date.now()}`);
       const data = await res.json();
       if (data.success && data.weather) {
         weatherData = data.weather;
